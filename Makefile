@@ -10,7 +10,7 @@ up:
 down:
 	docker compose -f ./srcs/docker-compose.yml down
 
-re: fclean
+re: clean
 	docker compose -f ./srcs/docker-compose.yml up -d --build
 
 clean: down
@@ -29,4 +29,13 @@ fclean: clean
 	docker system prune -af
 	docker volume prune -f
 
-.PHONY: all up down re clean fclean
+img :
+	docker image ls -a
+
+net :
+	docker network ls
+
+ps :
+	docker ps -a
+
+.PHONY: all up down re clean fclean img net ps
