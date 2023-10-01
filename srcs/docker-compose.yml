@@ -10,14 +10,14 @@ services:
     ports:
       - 443:443
 
-  mariadb:
-    container_name: mariadb
-    build: ./requirements/mariadb
-    restart: always
-    networks:
-      - network
-    ports:
-      - 3306:3306
+  # mariadb:
+  #   container_name: mariadb
+  #   build: ./requirements/mariadb
+  #   restart: always
+  #   networks:
+  #     - network
+  #   ports:
+  #     - 3306:3306
 
 networks:
   network:
