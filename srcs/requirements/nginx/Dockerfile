@@ -5,7 +5,7 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
 	openssl
 
 # make directory for nginx cert
-RUN mkdir -p /etc/nginx/cert
+# RUN mkdir -p /etc/nginx/cert
 
 # -keyout : private key
 # -out : cert.crt (.key + .cer)
