@@ -1,24 +1,49 @@
 version: "3.8"
 
 services:
-  nginx:
-    container_name: nginx
-    build: ./requirements/nginx
-    restart: always
+  mariadb:
+    container_name: mariadb
+    build: ./requirements/mariadb
+    volumes:
+      - db:/var/lib/mysql
     networks:
       - network
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABAS}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     ports:
-      - 443:443
+      - 3306:3306
+    restart: always
 
-  # mariadb:
-  #   container_name: mariadb
-  #   build: ./requirements/mariadb
+  # wordpress:
+  #   container_name: wordpress
+  #   build: ./requirements/wordpress
   #   restart: always
   #   networks:
   #     - network
   #   ports:
-  #     - 3306:3306
+  #     - 9000:9000
+
+  # nginx:
+  #   container_name: nginx
+  #   build: ./requirements/nginx
+  #   restart: always
+  #   networks:
+  #     - network
+  #   ports:
+  #     - 443:443
 
 networks:
   network:
     driver: bridge
+
+volumes:
+  wordpress:
+  db:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/pmikada/Desktop/42_Inceptionnnn/mariadb
+      o: bind

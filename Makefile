@@ -1,10 +1,12 @@
 NAME = inception
+DIR_DB = mariadb
 
 all: $(NAME)
 
 $(NAME): up
 
 up:
+	mkdir -p $(DIR_DB)
 	docker compose -f ./srcs/docker-compose.yml up -d
 
 down:
@@ -24,6 +26,7 @@ clean: down
 	else \
 		docker volume rm $$(docker volume ls -q); \
 	fi
+	sudo rm -rf $(DIR_DB)
 
 fclean: clean
 	docker system prune -af
