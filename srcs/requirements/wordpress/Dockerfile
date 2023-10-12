@@ -1,6 +1,6 @@
 FROM debian:bullseye
 
-RUN apt-get update && apt-get install --no-install-recommends -y \
+RUN apt-get update && apt-get install -y \
     wget \
     php \
 	php-cgi \
