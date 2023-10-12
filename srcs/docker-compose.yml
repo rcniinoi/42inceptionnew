@@ -17,23 +17,31 @@ services:
       - 3306:3306
     restart: always
 
-  # wordpress:
-  #   container_name: wordpress
-  #   build: ./requirements/wordpress
-  #   restart: always
-  #   networks:
-  #     - network
-  #   ports:
-  #     - 9000:9000
+  wordpress:
+    container_name: wordpress
+    build: ./requirements/wordpress
+    restart: always
+    depends_on:
+      - mariadb
+    volumes:
+      - wordpress:/var/www/html
+    networks:
+      - network
+    ports:
+      - 9000:9000
 
-  # nginx:
-  #   container_name: nginx
-  #   build: ./requirements/nginx
-  #   restart: always
-  #   networks:
-  #     - network
-  #   ports:
-  #     - 443:443
+  nginx:
+    container_name: nginx
+    build: ./requirements/nginx
+    restart: always
+    depends_on:
+      - wordpress
+    volumes:
+      - wordpress:/var/www/html/wordpress
+    networks:
+      - network
+    ports:
+      - 443:443
 
 networks:
   network:
@@ -41,6 +49,11 @@ networks:
 
 volumes:
   wordpress:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/pmikada/Desktop/42_Inceptionnnn/wordpress
+      o: bind
   db:
     driver: local
     driver_opts:

@@ -1,7 +1,19 @@
 FROM debian:bullseye
 
 RUN apt-get update && apt-get install --no-install-recommends -y \
-    mariadb-server \
-    mariadb-client
+    wget \
+    php \
+	php-cgi \
+	php-mysql \
+	php-fpm \
+	php-pdo \
+	php-gd \
+	php-cli \
+	php-mbstring
 
-EXPOSE 3306
+COPY ./tools/wordpress.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/wordpress.sh
+
+ENTRYPOINT [ "/usr/local/bin/wordpress.sh" ]
+
+EXPOSE 9000

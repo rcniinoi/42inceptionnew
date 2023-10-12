@@ -1,5 +1,5 @@
 NAME = inception
-DIR_DB = mariadb
+DIR_DB = mariadb wordpress
 
 all: $(NAME)
 
@@ -12,8 +12,7 @@ up:
 down:
 	docker compose -f ./srcs/docker-compose.yml down
 
-re: clean
-	docker compose -f ./srcs/docker-compose.yml up -d --build
+re: clean up
 
 clean: down
 	@if [ -z $$(docker image ls -qa) ]; then \
