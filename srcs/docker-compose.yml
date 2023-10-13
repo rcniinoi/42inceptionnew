@@ -1,62 +1,56 @@
 version: "3.8"
-
 services:
-  mariadb:
-    container_name: mariadb
-    build: ./requirements/mariadb
+  nginx:
+    container_name: nginx
+    build: ./requirements/nginx
+    depends_on:
+      - wordpress
     volumes:
-      - db:/var/lib/mysql
+      - wordpress:/var/www/html
     networks:
       - network
-    environment:
-      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
-      MYSQL_DATABASE: ${MYSQL_DATABAS}
-      MYSQL_USER: ${MYSQL_USER}
-      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
     ports:
-      - 3306:3306
+      - 443:443
     restart: always
 
   wordpress:
     container_name: wordpress
     build: ./requirements/wordpress
-    restart: always
     depends_on:
       - mariadb
     volumes:
-      - wordpress:/var/www/html/wordpress
+      - wordpress:/var/www/html
     networks:
       - network
-    ports:
-      - 9000:9000
-
-  nginx:
-    container_name: nginx
-    build: ./requirements/nginx
+    env_file:
+      - .env
     restart: always
-    depends_on:
-      - wordpress
+
+  mariadb:
+    container_name: mariadb
+    build: ./requirements/mariadb
     volumes:
-      - wordpress:/var/www/html/wordpress
+      - mariadb:/var/lib/mysql
     networks:
       - network
-    ports:
-      - 443:443
+    env_file:
+      - .env
+    restart: always
 
 networks:
   network:
     driver: bridge
 
 volumes:
+  mariadb:
+    driver: local
+    driver_opts:
+      type: none
+      device: /home/pmikada/Desktop/42_Inceptionnnn/mariadb
+      o: bind
   wordpress:
     driver: local
     driver_opts:
       type: none
       device: /home/pmikada/Desktop/42_Inceptionnnn/wordpress
-      o: bind
-  db:
-    driver: local
-    driver_opts:
-      type: none
-      device: /home/pmikada/Desktop/42_Inceptionnnn/mariadb
       o: bind
