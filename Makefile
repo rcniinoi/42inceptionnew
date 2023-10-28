@@ -7,7 +7,7 @@ $(NAME): up
 
 up:
 	mkdir -p $(DIR_DB)
-	docker compose -f ./srcs/docker-compose.yml up
+	docker compose -f ./srcs/docker-compose.yml up -d
 
 down:
 	docker compose -f ./srcs/docker-compose.yml down
