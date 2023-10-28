@@ -25,6 +25,8 @@ services:
     env_file:
       - .env
     restart: always
+    ports:
+      - 9000:9000
 
   mariadb:
     container_name: mariadb
@@ -46,11 +48,11 @@ volumes:
     driver: local
     driver_opts:
       type: none
-      device: /home/pmikada/Desktop/42_Inceptionnnn/mariadb
+      device: /Users/pittinansaeyang/42_Inceptionnnn/mariadb
       o: bind
   wordpress:
     driver: local
     driver_opts:
       type: none
-      device: /home/pmikada/Desktop/42_Inceptionnnn/wordpress
+      device: /Users/pittinansaeyang/42_Inceptionnnn/wordpress
       o: bind

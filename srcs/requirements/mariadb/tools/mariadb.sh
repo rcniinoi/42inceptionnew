@@ -1,12 +1,15 @@
 #!/bin/sh
 
+mysql_install_db
+
 /etc/init.d/mariadb start
 
 if [ -d "/var/lib/mysql/$MYSQL_DATABASE" ]
 then
 	echo "Database exists"
 else
-
+echo $MYSQL_ROOT_PASSWORD
+# mysql -e "UPDATE mysql.user SET Password = PASSWORD('$MYSQL_ROOT_PASSWORD') WHERE User = 'root'"
 mysql_secure_installation << EOF
 
 Y
@@ -14,7 +17,7 @@ Y
 $MYSQL_ROOT_PASSWORD
 $MYSQL_ROOT_PASSWORD
 Y
-N
+Y
 Y
 Y
 EOF

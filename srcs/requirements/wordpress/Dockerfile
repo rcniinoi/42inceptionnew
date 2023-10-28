@@ -23,6 +23,7 @@ RUN mkdir /run/php
 COPY ./tools/wordpress.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/wordpress.sh
 ENTRYPOINT ["/usr/local/bin/wordpress.sh"]
+# COPY ./conf/wp-config.php /var/www/html/
 
 WORKDIR /var/www/html/
 
