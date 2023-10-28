@@ -25,7 +25,7 @@ clean: down
 	else \
 		docker volume rm $$(docker volume ls -q); \
 	fi
-	rm -rf $(DIR_DB)
+	sudo rm -rf $(DIR_DB)
 
 fclean: clean
 	docker system prune -af

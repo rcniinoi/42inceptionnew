@@ -48,11 +48,11 @@ volumes:
     driver: local
     driver_opts:
       type: none
-      device: /Users/pittinansaeyang/42_Inceptionnnn/mariadb
+      device: /home/bocal/inceptio/mariadb
       o: bind
   wordpress:
     driver: local
     driver_opts:
       type: none
-      device: /Users/pittinansaeyang/42_Inceptionnnn/wordpress
+      device: /home/bocal/inceptio/wordpress
       o: bind
